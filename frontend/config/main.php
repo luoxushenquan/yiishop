@@ -11,14 +11,24 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
+    'language'=>'zh-CN',
+    //布局文件设置（false表示关闭）
+//    'layout'=>'mine',
+    //默认路由
+//  'defaultRoute' => 'stu/list',
+//    'defaultRoute' => 'tianqi/index',
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
         ],
         'user' => [
-            'identityClass' => 'common\models\User',
+            //制定实现认证接口
+            'class'=>'yii\web\user',
+            'identityClass' => 'frontend\models\admin',
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true],
+            //默认登陆页面
+            'loginUrl'=>['admin/login']
         ],
         'session' => [
             // this is the name of the session cookie used for login on the frontend
@@ -36,14 +46,15 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
+//地址美化
         'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
+            'enablePrettyUrl' => true,//启用美化地址
+            'showScriptName' => false,//是否显示脚本文件
+            // 'suffix'=>'.html',//伪静态后缀
             'rules' => [
             ],
         ],
-        */
+
     ],
     'params' => $params,
 ];
