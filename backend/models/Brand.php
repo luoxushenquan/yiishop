@@ -15,12 +15,12 @@ namespace backend\models;
 use yii\db\ActiveRecord;
 
 class Brand extends ActiveRecord{
-    public $imgFile;//图片属性
+//    public $logo;//图片属性
+//    public $imgFile;//图片属性
     public function rules(){
         return[
-            [['name','intro','sort','status'],'required'],
-            ['imgFile','file','extensions'=>['jpg','png','gif'],'skipOnEmpty'=>false],
-
+            [['logo','name','intro','sort','status'],'required'],
+//            ['logo','file','extensions'=>['jpg','png','gif','jpeg'],'skipOnEmpty'=>false],
         ];
     }
     public function attributeLabels(){
@@ -29,7 +29,7 @@ class Brand extends ActiveRecord{
             'intro'=>'简介',
             'sort'=>'排序',
             'status'=>'状态',
-            'imgFile'=>'logo',
+            'logo'=>'图片',
         ];
     }
 }

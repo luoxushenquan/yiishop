@@ -10,14 +10,14 @@ class ArticleCategoryController extends  Controller{
     public function actionAdd(){
         $model = new ArticleCategory();
         $request = new Request();
-        if($request->isPost){
+        if($request->isPost) {
             $model->load($request->post());
-
+            if ($model->validate()) {
                 $model->save(0);//$model->validate()
-                \Yii::$app->session->setFlash('success','添加成功');
-            return $this->redirect(['article-category/index']);
+                \Yii::$app->session->setFlash('success', '添加成功');
+                return $this->redirect(['article-category/index']);
             }
-
+        }
         return $this->render('add', ['model' => $model]);
     }
     public function actionIndex(){
@@ -38,14 +38,14 @@ class ArticleCategoryController extends  Controller{
     public function actionEdit($id){
         $model=ArticleCategory::findOne(['id'=>$id]);
         $request=\yii::$app->request;
-        if($request->isPost){
+        if($request->isPost) {
             $model->load($request->post());
-
-            $model->save(0);//$model->validate()
-            \Yii::$app->session->setFlash('success','添加成功');
-            return $this->redirect(['article-category/index']);
+            if ($model->validate()) {
+                $model->save(0);//$model->validate()
+                \Yii::$app->session->setFlash('success', '添加成功');
+                return $this->redirect(['article-category/index']);
+            }
         }
-
         return $this->render('add', ['model' => $model]);
     }
 }

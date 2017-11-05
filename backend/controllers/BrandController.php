@@ -11,24 +11,20 @@ use yii\data\Pagination;
 use yii\web\Controller;
 use yii\web\Request;
 use yii\web\UploadedFile;
+use Qiniu\Auth;
 
+// 引入上传类
+use Qiniu\Storage\UploadManager;
 class BrandController extends  Controller{
+
+    public $enableCsrfValidation=false;
     public function actionAdd(){
         $model = new Brand();
         $request = new Request();
         if($request->isPost){
             $model->load($request->post());
-//        var_dump($model);exit;
-            //将上传文件封装成uploadedfile对象
-            $model->imgFile = UploadedFile::getInstance($model,'imgFile');
-//            var_dump($request->post());exit;
-            if($model->validate()){
-                $ext= $model->imgFile->extension;//获取上传文件的扩展名
-//                var_dump($ext);exit;
-                $file = '/upload/'.uniqid().'.'.$ext;
-//                var_dump($file);exit;
-                $model->imgFile->saveAs(\Yii::getAlias('@webroot').$file,0);
-                $model->logo = $file;
+           if($model->validate()){
+
                 $model->save(0);//$model->validate()
                 \Yii::$app->session->setFlash('success','添加成功');
                 return $this->redirect(['index']);
@@ -36,17 +32,6 @@ class BrandController extends  Controller{
         }
         return $this->render('add', ['model' => $model]);
     }
-    /*
-     *    //分页
-//        $total = Book::find()->count();
-            $query=Book::find();
-            $pager = new Pagination();
-            $pager->totalCount=$query->count();
-            $pager->pageSize=5;
-            //limit 0 5
-            $book = $query->limit($pager->limit)->offset($pager->offset)->all();
-            return $this->render('index',['books'=>$book,'pager'=>$pager]);
-     */
     public function actionIndex(){
         $brand=Brand::find();
         $pager = new Pagination();
@@ -59,6 +44,7 @@ class BrandController extends  Controller{
         $brand = Brand::findOne(['id'=>$id]);
         $brand->status=-1;
         $brand->save();
+//        $brand->delete();
         return $this->redirect(['index']);
     }
     public function actionEdit($id){
@@ -66,22 +52,66 @@ class BrandController extends  Controller{
         $request = \yii::$app->request;
         if($request->isPost){
             $model->load($request->post());
-//        var_dump($model);exit;
-            //将上传文件封装成uploadedfile对象
-            $model->imgFile = UploadedFile::getInstance($model,'imgFile');
-//            var_dump($request->post());exit;
             if($model->validate()){
-                $ext= $model->imgFile->extension;//获取上传文件的扩展名
-//                var_dump($ext);exit;
-                $file = '/upload/'.uniqid().'.'.$ext;
-//                var_dump($file);exit;
-                $model->imgFile->saveAs(\Yii::getAlias('@webroot').$file,0);
-                $model->logo = $file;
+
                 $model->save(0);//$model->validate()
                 \Yii::$app->session->setFlash('success','添加成功');
                 return $this->redirect(['index']);
             }
         }
         return $this->render('add', ['model' => $model]);
+    }
+    //处理文件上传的
+    public function actionUpload()
+    {
+        if (\yii::$app->request->isPost) {
+            $imgFile = UploadedFile::getInstanceByName('file');
+            //判断是否文件上传
+            if ($imgFile) {
+                $fileName = '/upload/' . uniqid() . '.' . $imgFile->extension;
+                $imgFile->saveAs(\yii::getAlias('@webroot') . $fileName, 0);
+
+                return Json_encode(['url' => $fileName]);
+            }
+        }
+     }
+    //测试=========================================================================================
+    public function actionTest(){
+        // 引入鉴权类
+
+
+// 需要填写你的 Access Key 和 Secret Key
+        $accessKey ="41InI-3JIW8QeoyP8dGu6XYv9QUNYq9ehDk7DT4m";
+        $secretKey = "xEMR1dU2oyTkt6vouPLuZwOBtdaFm_cGJVHWDWvN";
+     //对象空间的名称
+        $bucket = "yiishop";
+
+// 构建鉴权对象
+$auth = new Auth($accessKey, $secretKey);
+
+// 生成上传 Token
+$token = $auth->uploadToken($bucket);
+
+// 要上传文件的本地路径
+$filePath =\yii::getAlias('@webroot').'upload\59fd391c52133.jpg' ;
+
+// 上传到七牛后保存的文件名
+$key = 'upload\59fd391c52133.jpg';
+
+// 初始化 UploadManager 对象并进行文件的上传。
+$uploadMgr = new UploadManager();
+
+// 调用 UploadManager 的 putFile 方法进行文件的上传。
+        //报错了
+list($ret, $err) = $uploadMgr->putFile($token, $key, $filePath);
+echo "\n====> putFile result: \n";
+if ($err !== null) {
+    //上传失败打印错误
+    var_dump($err);
+} else {
+    //没有出错打印上传救过
+    var_dump($ret);
+}
+
     }
 }
