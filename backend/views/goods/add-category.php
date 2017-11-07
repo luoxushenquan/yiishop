@@ -69,6 +69,6 @@ echo '<div>
 
 
 
-echo $form->field($model,'intro')->textInput();
+echo $form->field($model,'intro')->textarea();
 echo '<input type="submit"class="btn btn-group">';
 \yii\bootstrap\ActiveForm::end();

@@ -93,10 +93,10 @@ $auth = new Auth($accessKey, $secretKey);
 $token = $auth->uploadToken($bucket);
 
 // 要上传文件的本地路径
-$filePath =\yii::getAlias('@webroot').'upload\59fd391c52133.jpg' ;
+$filePath =\yii::getAlias('@webroot').'\upload\59fd391c52133.jpg' ;
 
 // 上传到七牛后保存的文件名
-$key = 'upload\59fd391c52133.jpg';
+$key = '\upload\59fd391c52133.jpg';
 
 // 初始化 UploadManager 对象并进行文件的上传。
 $uploadMgr = new UploadManager();
@@ -104,7 +104,7 @@ $uploadMgr = new UploadManager();
 // 调用 UploadManager 的 putFile 方法进行文件的上传。
         //报错了
 list($ret, $err) = $uploadMgr->putFile($token, $key, $filePath);
-echo "\n====> putFile result: \n";
+//echo "\n====> putFile result: \n";
 if ($err !== null) {
     //上传失败打印错误
     var_dump($err);
