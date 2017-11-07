@@ -38,6 +38,7 @@
                     <a href="<?= \yii\helpers\Url::to(['goodsb/delete','id'=>$v->id])?>"class="glyphicon glyphicon-trash"></a>
                     <a href="<?= \yii\helpers\Url::to(['goodsb/edit','id'=>$v->id])?>"class="glyphicon glyphicon-wrench"></a>
                     <a href="<?= \yii\helpers\Url::to(['gallery/gallery','id'=>$v->id])?>"class="glyphicon glyphicon-picture"></a>
+                    <a href="<?= \yii\helpers\Url::to(['goodsb/look','id'=>$v->id])?>"class="glyphicon glyphicon-eye-open"></a>
                 </td>
             </tr>
         <?php endforeach; ?>

@@ -11,7 +11,7 @@
 <!--    name	varchar(50)	名称-->
 <!--    parent_id	int()	上级分类id-->
 <!--    intro	text()	简介-->
-    <a href="<?= \yii\helpers\Url::to(['goods/add-category'])?>"class="btn btn-info">添加品牌</a>
+    <a href="<?= \yii\helpers\Url::to(['goods/add-category'])?>"class="btn btn-info">添加商品分类</a>
     <table class="table table-bordered">
         <tr>
             <th>层级</th>

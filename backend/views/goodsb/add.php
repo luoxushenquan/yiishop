@@ -1,4 +1,5 @@
 <?php
+use \kucha\ueditor\UEditor;
 $form = \yii\bootstrap\ActiveForm::begin();
 echo $form->field($model,'name')->textInput();
 echo $form->field($model,'logo')->hiddenInput();
@@ -114,8 +115,11 @@ echo $form->field($model,'shop_price')->textInput();
 echo $form->field($model,'stock')->textInput();
 echo $form->field($model,'is_on_sale')->radioList([0=>'下架',1=>'上架']);
 echo $form->field($model,'sort')->textInput();
-echo $form->field($model2,'content')->textarea();
+//echo $form->field($model2,'content')->textarea();
+//文本编辑器
+echo $form->field($model2,'content')->widget('kucha\ueditor\UEditor');
 
 
+//=======================================================
 echo '<input type="submit" class="btn btn-group">';
 \yii\bootstrap\ActiveForm::end();

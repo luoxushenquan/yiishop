@@ -107,6 +107,15 @@ class GoodsbController extends Controller{
 
     }
 
+    //查询详细信息
+    public function actionLook($id){
+        $goods=Goods::findOne(['id'=>$id]);
+        $goods2=GoodsIntro::findOne(['goods_id'=>$id]);
+
+        return $this->render('look',['goods'=>$goods,'goods2'=>$goods2]);
+
+
+    }
 
     //处理文件上传的
     public function actionUpload()
@@ -123,5 +132,6 @@ class GoodsbController extends Controller{
             }
         }
     }
+
 
 }

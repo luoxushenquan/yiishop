@@ -6,7 +6,7 @@
  * Time: 16:28
  */
 ?>
-<a href="<?= \yii\helpers\Url::to(['article-category/add'])?>"class="btn btn-info">添加品牌</a>
+<a href="<?= \yii\helpers\Url::to(['article-category/add'])?>"class="btn btn-info">添加文章分类</a>
 <table class="table table-bordered">
     <tr>
         <th>id</th>
