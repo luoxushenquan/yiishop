@@ -21,7 +21,6 @@ class GoodsGalleryController extends Controller{
             if($request->isPost){
                 $model->load($request->post());
                 if($model->validate()){
-
                     $model->save(0);//$model->validate()
                     \Yii::$app->session->setFlash('success','添加成功');
                     return $this->redirect(['index']);

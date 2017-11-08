@@ -10,6 +10,7 @@ namespace backend\controllers;
 use backend\models\Brand;
 use backend\models\Gallery;
 use backend\models\Goods;
+use backend\models\GoodsDayCount;
 use backend\models\GoodsIntro;
 use yii\data\Pagination;
 use yii\web\Controller;
@@ -35,7 +36,24 @@ class GoodsbController extends Controller{
                 $model2->save(0);//$model->validate()
                 \Yii::$app->session->setFlash('success', '添加成功');
 
-//                echo '添加成功';exit;
+//记录每日添加的商品数=========================================================================================
+//记录每日添加的商品数=========================================================================================
+//记录每日添加的商品数=========================================================================================
+//                $daycount=new GoodsDayCount();
+//                $time =date('Ymd',time());
+//                $date = $daycount->find()->where(['day'=>$time])->one();
+//               var_dump($date);exit;
+////               var_dump(date('Ymd',$daycount->day));exit;
+//                if($date){
+//                    $daycount->count=$daycount->count+1;
+//                    $daycount->save();
+//
+//                }else{
+////                    $daycount=new GoodsDayCount();
+//                    $daycount->day=date('Ymd',time());
+//                    $daycount->count=1;
+//                    $daycount->save();
+//                }
                 return $this->redirect(['goodsb/index']);
 
             }
@@ -60,12 +78,10 @@ class GoodsbController extends Controller{
             $name=$_GET['like'];
         }
         $goods = $goods->where(['like','name',$name])->limit($pager->limit)->offset($pager->offset)->all();
-//        $goods = $goods->limit($pager->limit)->offset($pager->offset)->all();
         //文章分类
+//        var_dump($goods);exit;
         return $this->render('index',['goods'=>$goods,'pager'=>$pager]);
 
-//        $goods=Goods::find()->all();
-//        return $this->render('index',['goods'=>$goods]);
     }
 
     public function actionDelete($id){
@@ -79,7 +95,6 @@ class GoodsbController extends Controller{
         $model = Goods::findOne(['id'=>$id]);
         $model2=GoodsIntro::findOne(['goods_id'=>$id]);
         $request = \yii::$app->request;
-//        $request = new Request();
         if($request->isPost) {
             $model->load($request->post());
             $model2->load($request->post());
@@ -106,16 +121,15 @@ class GoodsbController extends Controller{
         return $this->render('add',['model'=>$model,'model2'=>$model2,'items'=>$items]);
 
     }
-
+//============================================================================================先不做
     //查询详细信息
     public function actionLook($id){
-        $goods=Goods::findOne(['id'=>$id]);
-        $goods2=GoodsIntro::findOne(['goods_id'=>$id]);
 
-        return $this->render('look',['goods'=>$goods,'goods2'=>$goods2]);
-
-
-    }
+        $model = Goods::findOne(['id'=>$id]);
+    $model2=GoodsIntro::findOne(['goods_id'=>$id]);
+//var_dump($goods2);exit;
+    return $this->render('look',['model2'=>$model2,'model'=>$model]);
+}
 
     //处理文件上传的
     public function actionUpload()

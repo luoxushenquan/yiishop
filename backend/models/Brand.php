@@ -18,18 +18,18 @@ class Brand extends ActiveRecord{
 //    public $logo;//图片属性
 //    public $imgFile;//图片属性
     public function rules(){
-        return[
-            [['logo','name','intro','sort','status'],'required'],
+    return[
+        [['logo','name','intro','sort','status'],'required'],
 //            ['logo','file','extensions'=>['jpg','png','gif','jpeg'],'skipOnEmpty'=>false],
-        ];
-    }
-    public function attributeLabels(){
-        return[
-            'name'=>'品牌名',
-            'intro'=>'简介',
-            'sort'=>'排序',
-            'status'=>'状态',
-            'logo'=>'图片',
-        ];
-    }
+    ];
+}
+public function attributeLabels(){
+    return[
+        'name'=>'品牌名',
+        'intro'=>'简介',
+        'sort'=>'排序',
+        'status'=>'状态',
+        'logo'=>'图片',
+    ];
+}
 }

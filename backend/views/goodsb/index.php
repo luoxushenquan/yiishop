@@ -7,13 +7,11 @@
  */
 ?>
     <a href="<?= \yii\helpers\Url::to(['goodsb/add'])?>"class="btn btn-info">添加商品</a>
-<form <?= \yii\helpers\Url::to(['goodsb/index'])?> method="get" >
-    <input type="text"name="like" class=" placeholderl" value="">
-<!--    <input type="text"name="like" value="按商品名搜索" onfocus="javascript:if(this.value=='按商品名搜索')this.value='';">-->
-    <button class="glyphicon glyphicon-search"></button>
+<!--    //搜索功能-->
+    <form <?= \yii\helpers\Url::to(['goodsb/index'])?> method="get" >
+        <input type="text"name="like" class=" placeholderl" value="">
+        <button class="glyphicon glyphicon-search"></button>
     </form>
-
-
     <table class="table table-bordered">
         <tr>
             <th>id</th>

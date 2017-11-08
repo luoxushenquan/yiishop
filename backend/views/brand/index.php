@@ -13,8 +13,8 @@
         <th>品牌</th>
         <th>简介</th>
         <th>logo</th>
-        <th>排序</th>
-        <th>简介</th>
+<!--        <th>排序</th>-->
+        <th>分类</th>
         <th>操作</th>
     </tr>
     <?php foreach ($brand as $v): ?>
@@ -23,7 +23,6 @@
             <td><?=$v->name?></td>
             <td><?=$v->intro?></td>
             <td><img src="<?=$v->logo?>"width="70px"></td>
-            <td><?=$v->sort?></td>
             <td><?=$v->status?></td>
             <td>
                 <a href="<?= \yii\helpers\Url::to(['brand/delete','id'=>$v->id])?>"class="glyphicon glyphicon-trash"></a>

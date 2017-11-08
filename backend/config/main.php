@@ -13,6 +13,7 @@ return [
     'language'=>'zh-CN',
     'bootstrap' => ['log'],
     'modules' => [],
+    'defaultRoute' => 'login/login',
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
