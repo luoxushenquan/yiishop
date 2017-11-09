@@ -17,11 +17,12 @@ class UserController extends Controller{
         $model = new User();
         $request = new Request();
         if($request->isPost){
-
             $model->load($request->post());
             if($model->validate()){
 //                echo 'eee',exit;
                 $model->created_at=time();
+                //自动登录用的创建用户时需要设置auth_key  修改密码重新生成(更安全
+                $model->auth_key=time().'2233';//随机字符串
 
                 $model->password_hash=\yii::$app->security->generatePasswordHash($model->password_hash);
                 $model->save(0);

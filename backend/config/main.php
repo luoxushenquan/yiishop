@@ -19,7 +19,9 @@ return [
             'csrfParam' => '_csrf-backend',
         ],
         'user' => [
-            'identityClass' => 'common\models\User',
+            //实现类自己登录配置的模型
+            'identityClass' => 'backend\models\User',
+            //开启自动登录功能默认配置好的
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
         ],

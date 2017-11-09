@@ -21,4 +21,10 @@ class LoginForm extends Model{
             'remember'=>'记住我',
         ];
     }
+
+    public function login()
+    {
+
+    }
+
 }

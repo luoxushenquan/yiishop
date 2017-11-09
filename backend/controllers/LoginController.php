@@ -39,14 +39,9 @@ class LoginController extends Controller{
                         $user->save();
                         //判断是否自动登录
 //                        var_dump($model->remember);exit;
-                        if($model->remember=1){
-                            //保存到cookie
-                            setcookie("username",$model->username,time()+3600*24*365);
-                            setcookie("password_hash",$model->password_hash,time()+3600*24*365);
-                    }
 
                         //提示信息  跳转
-                        \yii::$app->user->login($user);
+                        \yii::$app->user->login($user,$model->remember?3600*24*60:0);
                         \Yii::$app->session->setFlash('success','登录成功');
                         //跳转
                         return $this->redirect(['brand/index']);

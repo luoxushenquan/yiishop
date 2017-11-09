@@ -29,6 +29,10 @@ class GoodsbController extends Controller{
             $model2->load($request->post());
             if ($model->validate()&&$model2->validate()) {
                $model->create_time=time();
+                //保存货号
+
+               $model->sn=date('Ymd',time().'0000');
+
                 $model->save(0);//$model->validate()
 //                $onlyOne = $model->attributes['id'];
 
@@ -42,7 +46,7 @@ class GoodsbController extends Controller{
 //                $daycount=new GoodsDayCount();
 //                $time =date('Ymd',time());
 //                $date = $daycount->find()->where(['day'=>$time])->one();
-//               var_dump($date);exit;
+////               var_dump($date);exit;
 ////               var_dump(date('Ymd',$daycount->day));exit;
 //                if($date){
 //                    $daycount->count=$daycount->count+1;

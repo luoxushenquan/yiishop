@@ -13,6 +13,9 @@ use yii\web\IdentityInterface;
 class User extends ActiveRecord implements IdentityInterface{
     public function rules(){
         return[
+            //唯一性验证
+            [['username','email'],'unique'],
+            //不能为空
             [['username','password_hash','email','status',],'required'],
             ['email', 'email']
         ];
@@ -49,7 +52,7 @@ class User extends ActiveRecord implements IdentityInterface{
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        // TODO: Implement findIdentityByAccessToken() method.
+       // return static::findOne(['access_token' => $token]);
     }
 
     /**
@@ -75,7 +78,7 @@ class User extends ActiveRecord implements IdentityInterface{
      */
     public function getAuthKey()
     {
-        // TODO: Implement getAuthKey() method.
+      //  return $this->authKey;
     }
 
     /**
@@ -88,6 +91,6 @@ class User extends ActiveRecord implements IdentityInterface{
      */
     public function validateAuthKey($authKey)
     {
-        // TODO: Implement validateAuthKey() method.
+        return $this->authKey === $authKey;
     }
 }
