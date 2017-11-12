@@ -12,22 +12,23 @@ return [
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'language'=>'zh-CN',
-    //²¼¾ÖÎÄ¼þÉèÖÃ£¨false±íÊ¾¹Ø±Õ£©
+
+    //å¸ƒå±€æ–‡ä»¶è®¾ç½®ï¼ˆfalseè¡¨ç¤ºå…³é—­ï¼‰
 //    'layout'=>'mine',
-    //Ä¬ÈÏÂ·ÓÉ
-//  'defaultRoute' => 'stu/list',
-//    'defaultRoute' => 'tianqi/index',
+    'layout'=>false,
+    //é»˜è®¤è·¯ç”±
+  'defaultRoute' => 'member/login',
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
         ],
         'user' => [
-            //ÖÆ¶¨ÊµÏÖÈÏÖ¤½Ó¿Ú
+            //åˆ¶å®šå®žçŽ°è®¤è¯æŽ¥å£
             'class'=>'yii\web\user',
             'identityClass' => 'frontend\models\admin',
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true],
-            //Ä¬ÈÏµÇÂ½Ò³Ãæ
+            //é»˜è®¤ç™»é™†é¡µé¢
             'loginUrl'=>['admin/login']
         ],
         'session' => [
@@ -46,11 +47,11 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-//µØÖ·ÃÀ»¯
+//åœ°å€ç¾ŽåŒ–
         'urlManager' => [
-            'enablePrettyUrl' => true,//ÆôÓÃÃÀ»¯µØÖ·
-            'showScriptName' => false,//ÊÇ·ñÏÔÊ¾½Å±¾ÎÄ¼þ
-            // 'suffix'=>'.html',//Î±¾²Ì¬ºó×º
+            'enablePrettyUrl' => true,//å¯ç”¨ç¾ŽåŒ–åœ°å€
+            'showScriptName' => false,//æ˜¯å¦æ˜¾ç¤ºè„šæœ¬æ–‡ä»¶
+            // 'suffix'=>'.html',//ä¼ªé™æ€åŽç¼€
             'rules' => [
             ],
         ],
