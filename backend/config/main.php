@@ -20,6 +20,7 @@ return [
         ],
         'user' => [
             //实现类自己登录配置的模型
+            'loginUrl'=>['login/login'],
             'identityClass' => 'backend\models\User',
             //开启自动登录功能默认配置好的
             'enableAutoLogin' => true,

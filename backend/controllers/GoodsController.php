@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\filters\RbacFilter;
 use backend\models\GoodsCategory;
 use yii\data\Pagination;
 
@@ -30,6 +31,7 @@ class GoodsController extends \yii\web\Controller
 
             }
         }
+//        var_dump($model);exit;
         return $this->render('add-category',['model'=>$model]);
     }
 
@@ -100,5 +102,13 @@ class GoodsController extends \yii\web\Controller
         }
         return $this->render('add-category',['model'=>$model]);
     }
-
+    public function behaviors()
+    {
+        return [
+            'rbac'=>[
+                'class'=>RbacFilter::className(),
+                'except'=>['login']
+            ]
+        ];
+    }
 }

@@ -48,13 +48,14 @@ $this->registerJs(
 
 
             zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+            //console.debug(zTreeObj);
 //展开所有节点
               zTreeObj.expandAll(true);
 
               //选中节点
-              //获取节点，根据节点id搜索节点
-              var node = zTreeObj.getNodeByParam('id',{$model->parent_id}, null);
-              treeObj.selectNode(node);
+              //获取节点，根据节点id搜索节点//////////////////////////////////////这里问题没解决
+              //var node = zTreeObj.getNodeByParam('id',{$model->parent_id},null);
+              zTreeObj.selectNode(node);
 
 
 JS
@@ -65,9 +66,6 @@ echo '<div>
 </div>';
 
 /////////////////////////////////////////////////////////////////
-
-
-
 
 echo $form->field($model,'intro')->textarea();
 echo '<input type="submit"class="btn btn-group">';

@@ -23,7 +23,6 @@
                 <td><?=$v->name?></td>
                 <td><?=$v->intro?></td>
                 <td><?=$v->article_category_id ?></td>
-                <td><?=$v->article_category->name?></td>
                 <td><?=$v->sort?></td>
                 <td><?=$v->create_time?></td>
                 <td>

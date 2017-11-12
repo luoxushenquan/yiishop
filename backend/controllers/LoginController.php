@@ -7,6 +7,7 @@
  */
 
 namespace backend\controllers;
+use backend\filters\RbacFilter;
 use backend\models\LoginForm;
 use backend\models\User;
 use yii\web\Controller;
@@ -64,5 +65,15 @@ class LoginController extends Controller{
         //注销成功跳转到登录页
         echo '注销了';
         return $this->render(['login/login']);
+    }
+
+    public function behaviors()
+    {
+        return [
+            'rbac'=>[
+                'class'=>RbacFilter::className(),
+                'except'=>['login']
+            ]
+        ];
     }
 }

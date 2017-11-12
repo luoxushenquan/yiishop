@@ -34,21 +34,17 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    $menuItems = [
-        ['label' => '品牌管理', 'url' => ['brand/index']],
-        ['label' => '分类管理', 'url' => ['article-category/index']],
-        ['label' => '商品分类', 'url' => ['goods/index']],
-        ['label' => '商品列表', 'url' => ['goodsb/index']],
-        ['label' => '用户管理', 'url' => ['user/index']],
-//        ['label' => '注销', 'url' => ['login/logout']],
-    ];
+
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Login', 'url' => ['/login/login']];
+        $menuItems=[];
+        $menuItems[] = ['label' => '登录', 'url' => ['/login/login']];
     } else {
+//        $menuItems=Yii::$app->user->identity->menus;
+        $menuItems=Yii::$app->user->identity->menus;
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
-                '当前用户 (' . Yii::$app->user->identity->username . ')',
+                '注销 (' . Yii::$app->user->identity->username . ')',
                 ['class' => 'btn btn-link logout']
             )
             . Html::endForm()

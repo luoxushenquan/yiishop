@@ -2,56 +2,35 @@
 /**
  * Created by PhpStorm.
  * User: pc
- * Date: 2017/11/8
- * Time: 10:39
+ * Date: 2017/11/10
+ * Time: 16:23
  */
-
+//��ȡ�û���Ӧ�Ĳ˵�
 namespace backend\models;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
-class User extends ActiveRecord implements IdentityInterface{
-    public $role;
-    public function rules(){
-        return[
-            //唯一性验证
-            [['username','email'],'unique'],
-            //不能为空
-            [['username','password_hash','email','status','role'],'required'],
-            ['email', 'email']
-        ];
-    }
-    public function attributeLabels(){
-        return[
-            'username'=>'用户名',
-            'password_hash'=>'密码',
-            'email'=>'email',
-            'status'=>'状态',
-            'role'=>'分配角色',
-        ];
-    }
-    //获取用户对应的菜单
+class Daohang extends ActiveRecord implements IdentityInterface{
     public function getMenus(){
-//        exit;
-        $menuItems = [];
-        //获取所有一级菜单
-        $menus = Menu::find()->where(['class'=>1])->all();
 
-        foreach ($menus as $menu){
-
-            $items = [];
-            //遍历该一级菜单的子菜单
-//            var_dump($menu->children);exit;
-            foreach ($menu->children as $child){
-                //根据用户权限来确定是否显示该菜单
-                if(\Yii::$app->user->can($child->item)){
-                    $items[] =  ['label'=>$child->name,'url'=>[$child->item]];
-                }
+        $menuItems=[];
+        $menus = Menu::find()->where(['class'=>0])->all();
+        foreach ($menus as $menu ) {
+            $items=[];
+            foreach($menu->children as $child){
+               if( Yii::$app->user->can($child->url)){
+                   $items[]=['label'=>$child->label,'url'=>[$child->url]];
+               }
+//                $items=[]=['label'=>$child->name,'url'=>[$child->url]];
             }
-            $menuItem = ['label'=>$menu->name,'items'=>$items];
-            //显示菜单  没有二级菜单就不显示一级菜单
+
+            $menuItems=['label'=>$menu->name,'items'=>$items];
+            //���˵�����˵�������
+
+            //���û�ж����˵�����ʾһ���˵�
             if($items){
-                $menuItems[] = $menuItem;
+                $menuItems[]=$menuItems;
+
             }
         }
 
@@ -81,7 +60,7 @@ class User extends ActiveRecord implements IdentityInterface{
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-       // return static::findOne(['access_token' => $token]);
+        // TODO: Implement findIdentityByAccessToken() method.
     }
 
     /**
@@ -107,7 +86,7 @@ class User extends ActiveRecord implements IdentityInterface{
      */
     public function getAuthKey()
     {
-      //  return $this->authKey;
+        // TODO: Implement getAuthKey() method.
     }
 
     /**

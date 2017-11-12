@@ -6,6 +6,7 @@
  * Time: 14:23
  */
 namespace backend\controllers;
+use backend\filters\RbacFilter;
 use backend\models\Brand;
 use yii\data\Pagination;
 use yii\web\Controller;
@@ -113,5 +114,14 @@ if ($err !== null) {
     var_dump($ret);
 }
 
+    }
+    public function behaviors()
+    {
+        return [
+            'rbac'=>[
+                'class'=>RbacFilter::className(),
+                'except'=>['login']
+            ]
+        ];
     }
 }

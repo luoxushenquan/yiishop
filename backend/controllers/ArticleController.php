@@ -6,6 +6,7 @@
  * Time: 18:33
  */
 namespace backend\controllers;
+use backend\filters\RbacFilter;
 use backend\models\Article;
 use backend\models\ArticleCategory;
 use backend\models\ArticleDetail;
@@ -89,4 +90,13 @@ class ArticleController extends Controller{
 //        $detail = ArticleDetail::findOne(['id'=>$id]);
 //        return $this->render('detail',['detail'=>$detail]);
 //    }
+    public function behaviors()
+    {
+        return [
+            'rbac'=>[
+                'class'=>RbacFilter::className(),
+                'except'=>['login']
+            ]
+        ];
+    }
 }

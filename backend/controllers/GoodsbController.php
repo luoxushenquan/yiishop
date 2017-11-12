@@ -7,6 +7,7 @@
  * //商品表
  */
 namespace backend\controllers;
+use backend\filters\RbacFilter;
 use backend\models\Brand;
 use backend\models\Gallery;
 use backend\models\Goods;
@@ -149,6 +150,15 @@ class GoodsbController extends Controller{
                 return Json_encode(['url' => $fileName]);
             }
         }
+    }
+    public function behaviors()
+    {
+        return [
+            'rbac'=>[
+                'class'=>RbacFilter::className(),
+                'except'=>['login']
+            ]
+        ];
     }
 
 

@@ -7,6 +7,7 @@
  * 商品相册  goods id 还没有
  */
 namespace backend\controllers;
+use backend\filters\RbacFilter;
 use backend\models\GoodsGallery;
 use GuzzleHttp\Psr7\UploadedFile;
 use yii\web\Controller;
@@ -41,5 +42,14 @@ class GoodsGalleryController extends Controller{
                 return Json_encode(['url' => $fileName]);
             }
         }
+    }
+    public function behaviors()
+    {
+        return [
+            'rbac'=>[
+                'class'=>RbacFilter::className(),
+                'except'=>['login']
+            ]
+        ];
     }
 }

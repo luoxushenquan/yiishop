@@ -6,11 +6,13 @@
  * Time: 19:41
  */
 namespace backend\controllers;
+use backend\filters\RbacFilter;
 use backend\models\GoodsGallery;
 use yii\web\Controller;
 use yii\web\Request;
 use yii\web\UploadedFile;
 
+//没有权限
 class GalleryController extends Controller
 {
     public $enableCsrfValidation=false;
@@ -55,6 +57,15 @@ class GalleryController extends Controller
                 return Json_encode(['url' => $fileName]);
             }
         }
+    }
+    public function behaviors()
+    {
+        return [
+            'rbac'=>[
+                'class'=>RbacFilter::className(),
+                'except'=>['login']
+            ]
+        ];
     }
 
 }
