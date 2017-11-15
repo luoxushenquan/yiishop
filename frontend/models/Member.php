@@ -11,25 +11,14 @@ use yii\web\IdentityInterface;
 
 class Member extends ActiveRecord implements IdentityInterface{
 
-    public $role;
+//    public $role;
     public function rules(){
         return[
-            //唯一性验证email	varchar(100)	邮箱
-            //tel	char(11)	电话
+//不能重复
             [['username'],'unique'],
-            //不能为空
-            [['username','password','status','tel','email'],'required'],
-            ['email', 'email']
-        ];
-    }
-    public function attributeLabels(){
-        return[
-            'username'=>'用户名',
-            'password_hash'=>'密码',
-            'email'=>'email',
-            'status'=>'状态',
-            'role'=>'分配角色',
-        ];
+//            //不能为空
+            [['username','password_hash','tel','email'],'required'],
+             ];
     }
 
 

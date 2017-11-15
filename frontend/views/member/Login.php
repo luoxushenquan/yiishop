@@ -134,11 +134,7 @@
             rules: {
                 username: {
                     required: true,
-                    minlength:5,
-//                    remote:{
-//                       url:"<?//=\yii\helpers\Url::to(['member/name'])?>//",
-//
-//                   }
+                    minlength:3
                },
                 password: {
                     required: true,
@@ -154,14 +150,12 @@
                 username: {
                     required: "请输入用户名",
                     //minlength: "用户名必需由两个字母组成"
-                    minlength:'用户名最少5位',
-//                    remote:'用户已存在'
-
+                    minlength:'用户名最少3位'
                 },
                 password: {
                     required: "请输入密码",
                     minlength: "密码长度不能小于 6 个字母"
-                },
+                }
 
             },
 

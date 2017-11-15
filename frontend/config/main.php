@@ -25,11 +25,11 @@ return [
         'user' => [
             //制定实现认证接口
             'class'=>'yii\web\user',
-            'identityClass' => 'frontend\models\admin',
+            'identityClass' => 'frontend\models\Member',
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true],
             //默认登陆页面
-            'loginUrl'=>['admin/login']
+            'loginUrl'=>['goods/list']
         ],
         'session' => [
             // this is the name of the session cookie used for login on the frontend

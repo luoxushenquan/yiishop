@@ -74,6 +74,12 @@
                         <label for="">电话号码：</label>
                         <input type="text" id="tel" class="txt" name="tel" />
                     </li>
+                    <li>
+                        <label for="">短信验证码：</label>
+
+                        <input type="text" class="txt" value="" placeholder="请输入短信验证码" name="sms" disabled="disabled" id="sms"/> <input type="button" onclick="bindPhoneNum(this)" id="get_captcha" value="获取验证码" style="height: 25px;padding:3px 8px"/>
+
+                    </li>
                     <li class="checkcode">
                         <label for="">验证码：</label>
                         <input type="text"  name="checkcode" />
@@ -129,18 +135,21 @@
 
 </div>
 <!-- 底部版权 end -->
-<script>
+<script type="text/javascript">
     $().ready(function() {
 // 在键盘按下并释放及提交后验证提交表单
         $("#login_form").validate({
             rules: {
                 username: {
                     required: true,
-                    minlength:5
+                    minlength:3
                },
                 password: {
                     required: true,
                     minlength:6
+                },
+                confirm:{
+                    equalTo:"#password"
                 },
                 email:{
                     email:true
@@ -152,14 +161,24 @@
                 checkcode:{
                     check_captcha:true
                 },
-                equalTo:"#password"
+                cms:{
+                    remote: {
+                        url: "<?=\yii\helpers\Url::to(['member/check-sms'])?>",     //后台处理程序
+                        type: "post",               //数据发送方式
+                        dataType: "json",           //接受数据格式
+                        data: {                     //要传递的数据
+                                sms: $("#sms").val(),
+                                tel: $("#tel").val()
+                        }
+                    }
+                }
 
 
             },
             messages: {
                 username: {
                     required: "请输入用户名",
-                    minlength:'用户名最少5位'
+                    minlength:'用户名最少3位'
 
                 },
                 password: {
@@ -205,6 +224,43 @@
         return h == hash;
     }, "你是机器人不能注册");
 
+
+
+    ////短信验证
+    function bindPhoneNum(){
+        //1点击发送短信验证码按钮,获取手机号码,通过AJAX请求发送短信
+        var phone = $("#tel").val();
+//        console.debug(phone);
+        //上面判断了手机号这里不判断
+        $.get("<?=\yii\helpers\Url::to(['member/ajax-sms'])?>",{phone:phone},function(data){
+            if(data == 'success'){
+                alert('短信发送成功');
+            }else{
+                //发送失败
+                alert('短信发送失败,请稍后再试.');
+            }
+        });
+
+
+        //启用输入框
+        $('#sms').prop('disabled',false);
+
+        var time=60;
+        var interval = setInterval(function(){
+            time--;
+            if(time<=0){
+                clearInterval(interval);
+                var html = '获取验证码';
+                $('#get_captcha').prop('disabled',false);
+            } else{
+                var html = time + ' 秒后再次获取';
+                $('#get_captcha').prop('disabled',true);
+            }
+
+            $('#get_captcha').val(html);
+        },1000);
+    }
 </script>
+
 </body>
 </html>
