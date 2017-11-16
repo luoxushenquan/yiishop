@@ -79,7 +79,7 @@ class MenuController extends Controller{
         return [
             'rbac'=>[
                 'class'=>RbacFilter::className(),
-                'except'=>['login']
+                'except'=>['login','upload']
             ]
         ];
     }

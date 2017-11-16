@@ -6,53 +6,52 @@
  * Time: 21:44
  */
 namespace frontend\controllers;
+use backend\controllers\GalleryController;
 use backend\models\Goods;
 use backend\models\GoodsCategory;
+use backend\models\GoodsGallery;
 use yii\data\Pagination;
 use yii\web\Controller;
 
 class GoodsController extends Controller{
 
     //商品列表
-    public function actionList(){
-        //商品分类  一级  二级  三级
-        $goods_category_id=4;
+    public function actionIndex(){
+        return $this->render('index');
+    }
+
+
+    public function actionList($goods_category_id){
+//          var_dump($goods_category_id) ;exit;
         $goods_category = GoodsCategory::findOne(['id'=>$goods_category_id]);
+//        var_dump($goods_category);exit;
         //三级分类
+
         if($goods_category->depth == 2){
+//            exit;
             $query = Goods::find()->where(['goods_category_id'=>$goods_category_id]);
 
         }else{
-            //二级分类  14
-            //获取二级分类下面的所有三级分类 17,18
-            //根据三级分类id[17,18,20,21,22,9999]查商品
-            // sql: select * from goods where goods_category_id=17 or goods_category_id=18 or goods_category_id=18 or goods_category_id=18 or goods_category_id=18 or goods_category_id=18 or goods_category_id=18 or goods_category_id=18
-            //select * from goods where  goods_category_id in (17,18,29...999)
-            /*$result = $goods_category->children(1)->all();
-            //var_dump($result);exit;
-            $ids = [];
-            foreach ($result as $category){
-                $ids[] = $category->id;
-            }*/
-            //sql:select * from goodscategory where parent_id=14
-            //$ids = $goods_category->children()->andWhere(['depth'=>2])->column();
+;
             $ids = $goods_category->children()->andWhere(['depth'=>2])->column();
-            //$goods_category->children(1)->
-            //$ids = [17,18];
-            //var_dump($ids);exit;
+//            var_dump($ids);exit;
             $query = Goods::find()->where(['in','goods_category_id',$ids]);
+//            var_dump($query);exit;
 
-        }/*elseif ($goods_category->depth == 0){
-            //一级分类
-            $ids = $goods_category->children(2)->andWhere(['depth'=>2])->column();
-            var_dump($ids);exit;
-        }*/
-
+        }
         $pager = new Pagination();
         $pager->totalCount = $query->count();
-        $pager->pageSize = 20;
+        $pager->pageSize = 10;
 
         $models = $query->limit($pager->limit)->offset($pager->offset)->all();
-        return $this->render('index',['models'=>$models,'pager'=>$pager]);
+//        var_dump($models);exit;
+        return $this->render('list',['models'=>$models,'pager'=>$pager]);
+    }
+
+    public function actionLook($id){
+        $model= GoodsGallery::find()->where(['goods_id'=>$id])->all();
+        $model2= Goods::findOne(['id'=>$id]);
+//        var_dump($model);exit;
+        return $this->render('look',['model'=>$model,'model2'=>$model2]);
     }
 }

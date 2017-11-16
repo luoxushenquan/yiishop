@@ -74,10 +74,10 @@
                 <td class="col3">￥<span><?=$model->shop_price?></span></td>
                 <td class="col4">
                     <a href="javascript:;" class="reduce_num"></a>
-                    <input type="text" name="amount" value="<?=$carts[$model->id]?>" class="amount"/>
+                    <input type="text" name="amount" value="<?=$model->id?>" class="amount"/>
                     <a href="javascript:;" class="add_num"></a>
                 </td>
-                <td class="col5">￥<span><?=$model->shop_price*$carts[$model->id]?></span></td>
+                <td class="col5">￥<span><?=$model->shop_price*$model->id?></span></td>
                 <td class="col6"><a href="<?=\yii\helpers\Url::to(['cart/delete','id'=>$model->id])?>">删除</a></td>
             </tr>
         <?php endforeach;?>

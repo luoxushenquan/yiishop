@@ -120,7 +120,7 @@ if ($err !== null) {
         return [
             'rbac'=>[
                 'class'=>RbacFilter::className(),
-                'except'=>['login']
+                'except'=>['login','upload']
             ]
         ];
     }

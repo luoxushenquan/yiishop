@@ -63,7 +63,7 @@ class GalleryController extends Controller
         return [
             'rbac'=>[
                 'class'=>RbacFilter::className(),
-                'except'=>['login']
+                'except'=>['login','upload','add','delete','gallery']
             ]
         ];
     }

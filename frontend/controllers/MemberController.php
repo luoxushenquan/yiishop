@@ -24,7 +24,7 @@ class MemberController extends Controller{
                 if($model->login($model)){
                     //提示 跳转
                 \Yii::$app->session->setFlash('success','登录成功');
-                   return $this->redirect(['goods/list']);
+                   return $this->redirect(['goods/index']);
                 }else{
                     \Yii::$app->session->setFlash('success','登录失败请重新登录');
                     return $this->render('login');
