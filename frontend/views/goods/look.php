@@ -602,7 +602,7 @@
                                 <dd>
                                     <a href="javascript:;" id="reduce_num"></a>
                                     <input type="text" name="amount" value="1" class="amount"/>
-                                    <input type="hidden" name="goods_id" value="<?=$model2->id?>" class="amount"/>
+                                    <input type="hidden" name="goods_id" value="<?=$model2->id?>" />
                                     <a href="javascript:;" id="add_num"></a>
                                 </dd>
                             </dl>

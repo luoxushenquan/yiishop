@@ -22,12 +22,21 @@
         </div>
         <div class="topnav_right fr">
             <ul>
-                <li>您好，欢迎来到京西！[<a href="login.html">登录</a>] [<a href="register.html">免费注册</a>] </li>
-                <li class="line">|</li>
-                <li>我的订单</li>
-                <li class="line">|</li>
-                <li>客户服务</li>
+                <?php
+                if(Yii::$app->user->isGuest){
+                    ?>
+                    <li>您好，欢迎来到西边太阳！[<a href="<?=\yii\helpers\Url::to(['member/login'])?>">登录</a>] [<a href="<?=\yii\helpers\Url::to(['member/add'])?>">免费注册</a>] </li>
+                    <?php
+                }else{
+                    ?>
 
+                    <li class="line">|</li>-->
+                    <li>我的订单</li>
+                    <li class="line">|</li>
+                    <li>客户服务</li>
+                    <?php
+                }
+                ?>
             </ul>
         </div>
     </div>
@@ -90,7 +99,7 @@
     </table>
     <div class="cart_btn w990 bc mt10">
         <a href="<?=\yii\helpers\Url::to(['goods/index'])?>" class="continue">继续购物</a>
-        <a href="" class="checkout">结 算</a>
+        <a href="<?=\yii\helpers\Url::to(['order/add'])?>" class="checkout">结 算</a>
     </div>
 </div>
 <!-- 主体部分 end -->

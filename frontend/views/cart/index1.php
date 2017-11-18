@@ -22,12 +22,21 @@
         </div>
         <div class="topnav_right fr">
             <ul>
-                <li>您好，欢迎来到京西！[<a href="login.html">登录</a>] [<a href="register.html">免费注册</a>] </li>
-                <li class="line">|</li>
-                <li>我的订单</li>
-                <li class="line">|</li>
-                <li>客户服务</li>
+                <?php
+                if(Yii::$app->user->isGuest){
+                    ?>
+                    <li>您好，欢迎来到西边太阳！[<a href="<?=\yii\helpers\Url::to(['member/login'])?>">登录</a>] [<a href="<?=\yii\helpers\Url::to(['member/add'])?>">免费注册</a>] </li>
+                    <?php
+                }else{
+                    ?>
 
+                    <li class="line">|</li>-->
+                    <li>我的订单</li>
+                    <li class="line">|</li>
+                    <li>客户服务</li>
+                    <?php
+                }
+                ?>
             </ul>
         </div>
     </div>
@@ -69,15 +78,15 @@
         <tbody>
         <?php foreach ($models as $model):?>
             <tr data-id="<?=$model->id?>">
-                <td class="col1"><a href=""><img src="<?=Yii::$app->params['backend_domain'].$model->logo?>" alt="" /></a>
-                    <strong><a href=""><?=$model->name?></a></strong></td>
-                <td class="col3">￥<span><?=$model->shop_price?></span></td>
+                <td class="col1"><a href=""><img src="<?=Yii::$app->params['backend_domain'].$model->goods['logo']?>" alt="" /></a>
+                    <strong><a href=""><?=$model->goods['name']?></a></strong></td>
+                <td class="col3">￥<span><?=$model->goods['shop_price']?></span></td>
                 <td class="col4">
-                    <a href="javascript:;" class="reduce_num"></a>
-                    <input type="text" name="amount" value="<?=$model->id?>" class="amount"/>
+                     <a href="javascript:;" class="reduce_num"></a>
+                    <input type="text" name="amount" value="<?=$model->amount?>" class="amount"/>
                     <a href="javascript:;" class="add_num"></a>
                 </td>
-                <td class="col5">￥<span><?=$model->shop_price*$model->id?></span></td>
+                <td class="col5">￥<span><?=$model->goods['shop_price']*$model->amount?></span></td>
                 <td class="col6"><a href="<?=\yii\helpers\Url::to(['cart/delete','id'=>$model->id])?>">删除</a></td>
             </tr>
         <?php endforeach;?>
@@ -90,7 +99,7 @@
     </table>
     <div class="cart_btn w990 bc mt10">
         <a href="<?=\yii\helpers\Url::to(['goods/index'])?>" class="continue">继续购物</a>
-        <a href="" class="checkout">结 算</a>
+        <a href="<?=\yii\helpers\Url::to(['order/add'])?>" class="checkout">结 算</a>
     </div>
 </div>
 <!-- 主体部分 end -->
