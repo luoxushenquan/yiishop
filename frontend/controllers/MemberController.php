@@ -35,16 +35,16 @@ class MemberController extends Controller{
 
     }
 //验证用户名是否存在
-    public function actionName($username){
-
-        $model=new Member();
-        $request = \Yii::$app->request;
-        $username = $model->findOne()->where(['username'=>$username]);
-        if($username){
-            return 'false';
-        }
-        return 'true';
-    }
+//    public function actionName($username){
+//
+//        $model=new Member();
+//        $request = \Yii::$app->request;
+//        $username = $model->findOne()->where(['username'=>$username]);
+//        if($username){
+//            return 'false';
+//        }
+//        return 'true';
+//    }
 
     //用户注册
     public function actionAdd(){
