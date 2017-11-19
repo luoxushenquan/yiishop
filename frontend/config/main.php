@@ -24,7 +24,7 @@ return [
         ],
         'user' => [
             //制定实现认证接口
-            'class'=>'yii\web\user',
+            'class'=>'yii\web\User',
             'identityClass' => 'frontend\models\Member',
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true],
