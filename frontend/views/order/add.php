@@ -78,7 +78,7 @@ use frontend\models\order;
             <div class="address_info">
                 <p>
                     <?php foreach ($address as $v): ?>
-                    <input type="radio" value="1" name="address_id"/>
+                    <input type="radio" value="<?=$v->id?>" name="address_id"/>
                     <?=$v->username.'地址：'.$v->cmbprovince.$v->cmbcity.$v->cmbarea.$v->content.$v->tel?> </p>
                     <?php endforeach; ?>
 
@@ -114,7 +114,6 @@ use frontend\models\order;
 <!--                    </tr>-->
                     <?php foreach(Order::$deliveries as $v):?>
                     <tr>
-
                         <td><input type="radio" name="delivery" /><?=$v[0]?></td>
                         <td>￥<?=$v[1]?></td>
                         <td><?=$v[2]?></td>
@@ -151,7 +150,7 @@ use frontend\models\order;
 
 
             <div class="receipt_select ">
-                <form action="">
+<!--                <form action="">-->
                     <ul>
                         <li>
                             <label for="">发票抬头：</label>
@@ -167,7 +166,7 @@ use frontend\models\order;
                             <input type="radio" name="content" />耗材
                         </li>
                     </ul>
-                </form>
+<!--                </form>-->
 
             </div>
         </div>
@@ -226,7 +225,8 @@ use frontend\models\order;
     </div>
 
     <div class="fillin_ft">
-        <a href="javascript:;"><span>提交订单</span></a>
+<!--        <a href="javascript:;"><span>提交订单</span></a>-->
+        <input type="submit"value="提交"/>
         <p>应付总额：<strong>￥5076.00元</strong></p>
 
     </div>

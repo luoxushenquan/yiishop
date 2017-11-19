@@ -26,14 +26,22 @@ class OrderController extends Controller{
 
        $request=new Request();
        if($request->isPost){
+
            $order=new Order();
            $order->member_id=\Yii::$app->user->id;
            $address_id=$request->post('address_id');
-           $address=Address::findOne(['id'=>$address_id,'member_id'=>\Yii::$app->user->id]);
+//           var_dump($address_id);exit;
+           $address=Address::findOne(['id'=>$address_id,'name'=>\Yii::$app->user->id]);
+//           var_dump($address);exit;
            if($address==null){
 
            }
-           $order->name=$address->name;
+
+           //用户id
+           $order->member_id=$address->name;
+
+           //收货人
+           $order->name=$address->username;
            $order->province=$address->cmbprovince;
            $order->city=$address->cmbcity;
            $order->area=$address->cmbarea;
@@ -42,6 +50,7 @@ class OrderController extends Controller{
 
            $order->delivery_id=$request->post('delivery_id');
            $order->delivery_name=Order::$deliveries[$order->delivery_id][0];
+           var_dump($order->delivery_name);exit;
            $order->delivery_price=Order::$deliveries[$order->delivery_id][1];
 
            //支付方式 id不管
