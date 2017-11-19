@@ -14,7 +14,7 @@
 
 </head>
 <?php
-use frontend\models\order;
+use frontend\models\Order;
 ?>
 <body>
 <!-- 顶部导航 start -->
