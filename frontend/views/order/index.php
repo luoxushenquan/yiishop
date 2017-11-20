@@ -504,11 +504,11 @@
                 <?php foreach($model as $v): ?>
                 <tr>
                     <td><a href=""><?=$v->order_id?></a></td>
-<!--                    <td><a href=""><img src="--><?//=Yii::$app->params['backend_domain'].$v->goods['logo']?><!--" alt="" /></a></td>-->
+                    <td><a href=""><img src="<?=Yii::$app->params['backend_domain'].$v->logo?>" alt="" /></a></td>
                     <td><?=$v->goods_name?></td>
                     <td><?=$v->price?></td>
                     <td>2013-11-12 16:28:14</td>
-                    <td>已取消</td>
+                    <td><?=$v->status?'代发货':'已发货'?></td>
                 </tr>
                 <?php endforeach; ?>
                 </tbody>

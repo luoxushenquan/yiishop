@@ -20,5 +20,13 @@ class Order extends ActiveRecord{
         2=>['霸王餐','你是发哥可以用'],
         3=>['空头支票','城市套路深'],
     ];
+    public function getOrder(){
+        /**
+         * 第一个参数为要关联的字表模型类名称，
+         *第二个参数指定 通过子表的 customer_id 去关联主表的 id 字段
+         */
+        return $this->hasOne(Order::className(), ['id' => 'goods_id']);
+
+    }
 
 }

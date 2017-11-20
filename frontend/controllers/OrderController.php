@@ -26,20 +26,14 @@ class OrderController extends Controller{
 
        $request=new Request();
        if($request->isPost){
-
            $order=new Order();
            $order->member_id=\Yii::$app->user->id;
            $address_id=$request->post('address_id');
-//           var_dump($address_id);exit;
            $address=Address::findOne(['id'=>$address_id,'name'=>\Yii::$app->user->id]);
-//           var_dump($address);exit;
            if($address==null){
-
            }
-
            //用户id
            $order->member_id=$address->name;
-
            //收货人
            $order->name=$address->username;
            $order->province=$address->cmbprovince;
@@ -47,12 +41,9 @@ class OrderController extends Controller{
            $order->area=$address->cmbarea;
            $order->address=$address->content;
            $order->tel=$address->tel;
-
-           $order->delivery_id=$request->post('delivery_id');
+           $order->delivery_id=$request->post('delivery');
            $order->delivery_name=Order::$deliveries[$order->delivery_id][0];
-           var_dump($order->delivery_name);exit;
            $order->delivery_price=Order::$deliveries[$order->delivery_id][1];
-
            //支付方式 id不管
            $order->payment_name=Order::$zhifu[$order->delivery_id][0];
            //金额
@@ -63,9 +54,10 @@ class OrderController extends Controller{
            //开启事务
            $transaction = \Yii::$app->db->beginTransaction();
            try{
+//               exit;
                if( $order->save()){
                    //保存订单商品表
-                   $carts=Cart::find()->where(['member'=>\Yii::$app->user->id])->all();
+                   $carts=Cart::find()->where(['member_id'=>\Yii::$app->user->id])->all();
                    foreach($carts as $cart){
 
                        //检查库存够不
@@ -87,17 +79,20 @@ class OrderController extends Controller{
                        $order->total+= $order_goods->total;
                        //扣减商品库存
                        Goods::updateAllCounters(['stock'=>-$cart->amount],['id'=>$cart->goods_id]);
+
                    }
                    //删除购物车
                    Cart::deleteAll('member_id='.\Yii::$app->user->id);
+
                    $order->save();
 
                }
                //提交食物
                $transaction->commit();
-
+            return $this->redirect('index');
            }catch(Exception $e){
                //回滚
+//               exit;
                $transaction->rollBack();
                //下单失败 提示库存不足
                echo $e->getMessage();exit;
@@ -114,7 +109,8 @@ class OrderController extends Controller{
        return $this->render('add', ['address'=>$address,'goods' => $goods]);
    }
     public function actionIndex(){
-        $model = OrderGoods::find()->all();
+//        $model = OrderGoods::find()->all();
+        $model = OrderGoods::find()->joinWith('order')->where(['goods_id' => id])->all();
 //        var_dump($model);exit;
             return $this->render('index',['model'=>$model]);
     }

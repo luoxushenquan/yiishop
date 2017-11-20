@@ -112,9 +112,9 @@ use frontend\models\Order;
 <!--                        <td>￥10.00</td>-->
 <!--                        <td>每张订单不满499.00元,运费15.00元, 订单4...</td>-->
 <!--                    </tr>-->
-                    <?php foreach(Order::$deliveries as $v):?>
+                    <?php foreach(Order::$deliveries as $k=>$v):?>
                     <tr>
-                        <td><input type="radio" name="delivery" /><?=$v[0]?></td>
+                        <td><input type="radio" name="delivery" value="<?=$k?>" /><?=$v[0]?></td>
                         <td>￥<?=$v[1]?></td>
                         <td><?=$v[2]?></td>
                     </tr>
@@ -133,9 +133,9 @@ use frontend\models\Order;
 
             <div class="pay_select">
                 <table>
-                    <?php foreach(Order::$zhifu as $v):?>
+                    <?php foreach(Order::$zhifu as $k=>$v):?>
                     <tr class="cur">
-                        <td class="col1"><input type="radio" name="pay" /><?=$v[0]?></td>
+                        <td class="col1"><input type="radio" name="pay" value="<?=$k?>"/><?=$v[0]?></td>
                         <td class="col2"><?=$v[1]?></td>
                     </tr>
                     <?php endforeach; ?>

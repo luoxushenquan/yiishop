@@ -17,9 +17,27 @@ class GoodsController extends Controller{
 
     //商品列表
     public function actionIndex(){
-        return $this->render('index');
+        //首页静态化
+        //开启ob缓存
+        ob_start();
+        //页面输出啊
+        //获取ob缓存内
+        //ob_get_contents();
+        //将内容保存到今天文件 index.html
+        //file_put_contents();
+        $content = $this->render('index');
+        //保存到静态文件
+        file_put_contents('index.html',$content);
+        return $content;
+//        return $this->render('index');
     }
-
+//通过ajax获取用户登录状态
+public function actionUserStatus(){
+    //返回 登录状态 用户名
+    $isLogin=!\Yii::$app->user->isGuest;
+    $username=$isLogin?\Yii::$app->user->identity->username:'';
+    return['isLogin'=>$isLogin,'username'=>$username];
+}
 
     public function actionList($goods_category_id){
 //          var_dump($goods_category_id) ;exit;
