@@ -109,10 +109,24 @@ class OrderController extends Controller{
        return $this->render('add', ['address'=>$address,'goods' => $goods]);
    }
     public function actionIndex(){
-//        $model = OrderGoods::find()->all();
-        $model = OrderGoods::find()->joinWith('order')->where(['goods_id' => id])->all();
+//        exit;
+//        $order = new Order();
+//        $model = Order::find()->joinWith('order')->where(['id' =>'goods_id'])->all();
 //        var_dump($model);exit;
-            return $this->render('index',['model'=>$model]);
-    }
+//            return $this->render('index',['model'=>$model]);
+//    }
+        if(\Yii::$app->user->isGuest){
+            return $this->redirect(['member/login']);
+        }
+        $member_id=\Yii::$app->user->identity->id;
+//得到地址数据
+        $address=Address::find()->where(['member_id'=>$member_id])->all();
+//得到购物车商品
+        $carts=Cart::find()->where(['member_id'=>$member_id])->all();
+        $cart=ArrayHelper::map($carts,'goods_id','amount');
+//得到商品具体信息
+        $goods=Goods::find()->where(['in','id',array_keys($cart)])->all();
+        return $this->render('index',['address'=>$address,'carts'=>$cart,'goods'=>$goods]);
 
-}
+
+    }  }

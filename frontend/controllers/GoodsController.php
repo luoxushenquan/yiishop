@@ -6,10 +6,12 @@
  * Time: 21:44
  */
 namespace frontend\controllers;
+
 use backend\controllers\GalleryController;
 use backend\models\Goods;
 use backend\models\GoodsCategory;
 use backend\models\GoodsGallery;
+use frontend\models\SphinxClient;
 use yii\data\Pagination;
 use yii\web\Controller;
 
@@ -72,4 +74,43 @@ public function actionUserStatus(){
 //        var_dump($model);exit;
         return $this->render('look',['model'=>$model,'model2'=>$model2]);
     }
+    //中文分词搜索
+    public function actionSearch(){
+//        require ( "sphinxapi.php" );
+        $cl = new SphinxClient();
+        $cl->SetServer ( '127.0.0.1', 9312);//sphinx的searchd服务信息
+        $cl->SetConnectTimeout ( 10 );//超时
+        $cl->SetArrayResult ( true );//结果数组形式返回
+// $cl->SetMatchMode ( SPH_MATCH_ANY);
+        $cl->SetMatchMode ( SPH_MATCH_EXTENDED2);//设置匹配模式
+        $cl->SetLimits(0, 1000);//设置分页
+        $info = '小米';//查询关键字
+        $res = $cl->Query($info, 'goods');//shopstore_search
+//print_r($cl);
+        print_r($res);
+//    var_dump($res);
+    }
+
+//4.商品
+//-获取某分类下面的所有商品（不考虑分页）
+//-获取某品牌下面的所有商品（不考虑分页）
+//5.文章
+//-获取文章分类
+//-获取某分类下面的所有文章
+//-获取某文章所属分类
+//6.购物车
+//-添加商品到购物车
+//-修改购物车某商品数量
+//-删除购物车某商品
+//-清空购物车
+//-获取购物车所有商品
+//7.订单
+//-获取支付方式
+//-获取送货方式
+//-提交订单
+
+//-修改密码
+//-修改地址
+//-地址列表
+//-获取某分类的父分类
 }
