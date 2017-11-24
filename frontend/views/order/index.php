@@ -494,7 +494,7 @@
                 <tr>
                     <th width="10%">订单号</th>
                     <th width="20%">订单商品</th>
-                    <th width="10%">收货人</th>
+<!--                    <th width="10%">收货人</th>-->
                     <th width="20%">订单金额</th>
                     <th width="20%">下单时间</th>
                     <th width="10%">订单状态</th>
@@ -504,11 +504,11 @@
                 <?php foreach($model as $v): ?>
                 <tr>
                     <td><a href=""><?=$v->order_id?></a></td>
-                    <td><a href=""><img src="<?=Yii::$app->params['backend_domain'].$v->logo?>" alt="" /></a></td>
-                    <td><?=$v->goods_name?></td>
+                    <td><a href=""><img src="<?=Yii::$app->params['backend_domain'].$v->logo?>" alt="" /></a>
+                    <?=$v->goods_name?></td>
                     <td><?=$v->price?></td>
                     <td>2013-11-12 16:28:14</td>
-                    <td><?=$v->status?'代发货':'已发货'?></td>
+                    <td><?=1?'待发货':'已发货'?></td>
                 </tr>
                 <?php endforeach; ?>
                 </tbody>

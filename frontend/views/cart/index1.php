@@ -86,14 +86,14 @@
                     <input type="text" name="amount" value="<?=$model->amount?>" class="amount"/>
                     <a href="javascript:;" class="add_num"></a>
                 </td>
-                <td class="col5">￥<span><?=$model->goods['shop_price']*$model->amount?></span></td>
+                <td class="col5">￥<?=$model->goods['shop_price']*$model->amount?></td>
                 <td class="col6"><a href="<?=\yii\helpers\Url::to(['cart/delete','id'=>$model->id])?>">删除</a></td>
             </tr>
         <?php endforeach;?>
         </tbody>
         <tfoot>
         <tr>
-            <td colspan="6">购物金额总计： <strong>￥ <span id="total"></span></strong></td>
+            <td colspan="6">购物金额总计1： <strong>￥ <?=$model->goods['shop_price']*$model->amount?></strong></td>
         </tr>
         </tfoot>
     </table>

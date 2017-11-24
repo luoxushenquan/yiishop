@@ -194,30 +194,7 @@ use frontend\models\Order;
                 </tr>
                 <?php endforeach; ?>
                 </tbody>
-                <tfoot>
-                <tr>
-                    <td colspan="5">
-                        <ul>
-                            <li>
-                                <span>4 件商品，总商品金额：</span>
-                                <em>￥5316.00</em>
-                            </li>
-                            <li>
-                                <span>返现：</span>
-                                <em>-￥240.00</em>
-                            </li>
-                            <li>
-                                <span>运费：</span>
-                                <em>￥10.00</em>
-                            </li>
-                            <li>
-                                <span>应付总额：</span>
-                                <em>￥5076.00</em>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
-                </tfoot>
+
             </table>
         </div>
         <!-- 商品清单 end -->
@@ -227,7 +204,7 @@ use frontend\models\Order;
     <div class="fillin_ft">
 <!--        <a href="javascript:;"><span>提交订单</span></a>-->
         <input type="submit"value="提交"/>
-        <p>应付总额：<strong>￥5076.00元</strong></p>
+
 
     </div>
 </form>

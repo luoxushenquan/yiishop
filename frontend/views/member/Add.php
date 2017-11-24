@@ -74,12 +74,12 @@
                         <label for="">电话号码：</label>
                         <input type="text" id="tel" class="txt" name="tel" />
                     </li>
-                    <li>
-                        <label for="">短信验证码：</label>
-
-                        <input type="text" class="txt" value="" placeholder="请输入短信验证码" name="sms" disabled="disabled" id="sms"/> <input type="button" onclick="bindPhoneNum(this)" id="get_captcha" value="获取验证码" style="height: 25px;padding:3px 8px"/>
-
-                    </li>
+<!--                    <li>-->
+<!--                        <label for="">短信验证码：</label>-->
+<!---->
+<!--                        <input type="text" class="txt" value="" placeholder="请输入短信验证码" name="sms" disabled="disabled" id="sms"/> <input type="button" onclick="bindPhoneNum(this)" id="get_captcha" value="获取验证码" style="height: 25px;padding:3px 8px"/>-->
+<!---->
+<!--                    </li>-->
                     <li class="checkcode">
                         <label for="">验证码：</label>
                         <input type="text"  name="checkcode" />
